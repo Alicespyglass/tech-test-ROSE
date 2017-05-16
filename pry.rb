@@ -1,6 +1,8 @@
 # repeated commands to play in pry
 
 require './lib/gilded_rose.rb'
+require './lib/item.rb'
 
-item = Item.new("widget", 3, 10)
-rose = GildedRose.new
+
+widget = Item.new("widget", 3, 10)
+rose = GildedRose.new(widget)
