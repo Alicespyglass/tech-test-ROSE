@@ -27,7 +27,7 @@ describe GildedRose do
 
 
   describe '#update_quality' do
-    xit 'quality is never above 50' do
+    it 'quality is never above 50' do
       rose.update_quality
       expect(rose.items[6].quality).to eq(50)
     end
@@ -43,7 +43,7 @@ describe GildedRose do
         end
 
         it 'automatically updates sell_in by -1' do
-          expect{ rose.update_quality }.to change{ rose.items[0].quality }.by(-1)
+          expect{ rose.update_quality }.to change{ rose.items[0].sell_in }.by(-1)
         end
 
       describe 'sell by date' do
@@ -100,7 +100,7 @@ describe GildedRose do
         end
       end
 
-      xdescribe 'Conjured items' do
+      describe 'Conjured items' do
         it 'degrade in Quality twice as a fast as normal items' do
           expect{ rose.update_quality }.to change{ rose.items[5].quality }.by(-2)
         end
@@ -124,11 +124,25 @@ describe GildedRose do
     end
   end
 
+  describe '#update_normal_quality' do
+    it 'decreases quality by 1' do
+      item = items[0]
+      expect{ rose.update_normal_quality(item) }.to change{ item.quality }.by(-1)
+    end
+
+    it 'degrades twice as fast once sell_in < 0' do
+      item = items[1]
+      item.sell_in = -2
+      expect{ rose.update_normal_quality(item) }.to change{ item.quality }.by(-2)
+    end
+  end
+
   describe '#update_sell_in' do
     it 'updates sell_in by -1' do
       item = items[0]
       expect{ rose.update_sell_in(item) }.to change{ item.sell_in }.by(-1)
     end
+
   end
 
   describe 'item check' do
@@ -150,6 +164,13 @@ describe GildedRose do
       it 'returns true if item is Backstage pass' do
         item = items[4]
         expect(rose.is_backstage_pass(item)).to eq(true)
+      end
+    end
+
+    describe '#is_conjured' do
+      it 'returns true if item is conjured' do
+        item = items[5]
+        expect(rose.is_conjured(item)).to eq(true)
       end
     end
   end
@@ -205,7 +226,13 @@ describe GildedRose do
         expect(item.quality).to eq(0)
       end
     end
+  end
 
+  describe '#update_conjured' do
+    it 'degrade in quality twice as fast' do
+      item = items[5]
+      expect{ rose.update_conjured(item) }.to change{ item.quality }.by(-2)
+    end
   end
 
 end
