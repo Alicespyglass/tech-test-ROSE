@@ -5,6 +5,6 @@ require './lib/item.rb'
 
 
 widget = Item.new("widget", 3, 55)
-bauble = Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 20)
+bauble = Item.new("Sulfuras, Hand of Ragnaros", 10, 20)
 items = [widget, bauble]
 rose = GildedRose.new(items)

@@ -109,29 +109,6 @@ describe GildedRose do
     end
   end
 
-  describe '#update_sell_in' do
-    it 'updates sell_in by -1' do
-      item = items[0]
-      expect{ rose.update_sell_in(item) }.to change{ item.sell_in }.by(-1)
-    end
-  end
-
-  describe 'item check' do
-    describe '#is_aged_brie' do
-      it 'returns true if item is aged brie' do
-        item = items[2]
-        expect(rose.is_aged_brie(item)).to be_truthy
-      end
-    end
-  end
-
-  context '#update_aged brie' do
-    it 'increases in quality the older it gets' do
-      item = items[2]
-      expect{ rose.update_aged_brie(item) }.to change{ item.quality }.by(1)
-    end
-  end
-
   describe '#check_quality_limits' do
     it 'cannot be above 50' do
       item = items[0]
@@ -148,5 +125,46 @@ describe GildedRose do
     end
   end
 
+  describe '#update_sell_in' do
+    it 'updates sell_in by -1' do
+      item = items[0]
+      expect{ rose.update_sell_in(item) }.to change{ item.sell_in }.by(-1)
+    end
+  end
+
+  describe 'item check' do
+    describe '#is_aged_brie' do
+      it 'returns true if item is aged brie' do
+        item = items[2]
+        expect(rose.is_aged_brie(item)).to eq(true)
+      end
+    end
+
+    describe '#is_Sulfuras' do
+      it 'returns true if item is Sulfuras' do
+        item = items[3]
+        expect(rose.is_Sulfuras(item)).to eq(true)
+      end
+    end
+  end
+
+  describe '#update_aged brie' do
+    it 'increases in quality the older it gets' do
+      item = items[2]
+      expect{ rose.update_aged_brie(item) }.to change{ item.quality }.by(1)
+    end
+  end
+
+  describe '#update_Sulfuras' do
+    it 'never has to be sold' do
+      item = items[3]
+      expect{ rose.update_Sulfuras(item) }.to change{ item.sell_in }.by(0)
+    end
+
+    it 'never decreases in quality' do
+      item = items[3]
+      expect{ rose.update_Sulfuras(item) }.to change{ item.quality }.by(0)
+    end
+  end
 
 end
