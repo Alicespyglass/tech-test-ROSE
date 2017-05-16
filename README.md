@@ -20,9 +20,9 @@ Refactoring the update_quality method which is currently a long smelly list of *
 [] “Aged Brie” actually increases in Quality the older it gets (test)
 [] “Sulfuras”, being a legendary item, never has to be sold or decreases in Quality (test)
 [] “Backstage passes”, like aged brie, increases in Quality as it’s SellIn value approaches; Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but Quality drops to 0 after the concert (test)
-[] “Conjured” items degrade in Quality twice as fast as normal items
-[] The Quality of an item is never more than 50
-[] The Quality of an item is never negative
+[] “Conjured” items degrade in Quality twice as fast as normal items (test)
+[] The Quality of an item is never more than 50 (test)
+[] The Quality of an item is never negative(test)
 
 
 ## Other learnings

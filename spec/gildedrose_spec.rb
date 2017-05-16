@@ -14,14 +14,27 @@ describe GildedRose do
       # items[3]
       Item.new("Sulfuras, Hand of Ragnaros", 10, 5),
       # items[4]
-      Item.new("Backstage passes to a TAFKAL80ETC concert", 11, 5)
+      Item.new("Backstage passes to a TAFKAL80ETC concert", 11, 5),
+      # items[5]
+      Item.new("Conjured", 10, 5),
+      # items[6]
+      Item.new("over-quality", 10, 60),
+      # items[7]
+      Item.new("zero-quality", 0, 0)
     ]}
 
   subject(:rose) { described_class.new(items) }
 
 
   context 'all items' do
-    it 'quality is never above 50' do
+    xit 'quality is never above 50' do
+      rose.update_quality
+      expect(rose.items[6].quality).to eq(50)
+    end
+
+    it 'quality is never negative' do
+      rose.update_quality
+      expect(rose.items[7].quality).to eq(0)
     end
   end
 
@@ -88,6 +101,12 @@ describe GildedRose do
 
       it 'never decreases in Quality' do
         expect{ rose.update_quality }.to change{ rose.items[3].quality }.by(0)
+      end
+    end
+
+    xdescribe 'Conjured items' do
+      it 'degrade in Quality twice as a fast as normal items' do
+        expect{ rose.update_quality }.to change{ rose.items[5].quality }.by(-2)
       end
     end
   end
