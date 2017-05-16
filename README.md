@@ -6,14 +6,13 @@ Refactoring the update_quality method which is currently a long smelly list of *
 
 ## Steps
 
-- Play with GildedRose
-- Play with creating items
-
-- Check if cases are satisfied by existing code - feature  / unit tests on by update_quality method
+1. Play with GildedRose
+2. Play with creating items
+3. Check if cases are satisfied by existing code - feature  / unit tests on by update_quality method
+4.
 
 ###note to do
 [] fails if item quality > 50
-[] fails if item quality < 0
 
 ## Parameters / Logic
 [] Once the sell by date has passed, Quality degrades twice as fast (test)
