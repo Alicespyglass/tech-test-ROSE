@@ -69,7 +69,7 @@ describe GildedRose do
 
         context '10 > days > 5' do
           it 'increases in quality by 2' do
-            rose.update_quality
+            rose.items[4].sell_in = 7
             expect{ rose.update_quality }.to change{ rose.items[4].quality}.by(2)
           end
         end
@@ -83,9 +83,8 @@ describe GildedRose do
 
         context 'after sell_in date' do
           it 'quality drops to 0' do
-            12.times do
-              rose.update_quality
-            end
+            rose.items[4].sell_in = -1
+            rose.update_quality
             expect(rose.items[4].quality).to eq(0)
           end
         end
@@ -146,6 +145,13 @@ describe GildedRose do
         expect(rose.is_Sulfuras(item)).to eq(true)
       end
     end
+
+    describe '#is_backstage_pass' do
+      it 'returns true if item is Backstage pass' do
+        item = items[4]
+        expect(rose.is_backstage_pass(item)).to eq(true)
+      end
+    end
   end
 
   describe '#update_aged brie' do
@@ -165,6 +171,41 @@ describe GildedRose do
       item = items[3]
       expect{ rose.update_Sulfuras(item) }.to change{ item.quality }.by(0)
     end
+  end
+
+  describe '#update_backstage_pass' do
+    context '>10 days before sell_in date' do
+      it 'increases in quality by 1' do
+        item = items[4]
+        expect{ rose.update_backstage_pass(item) }.to change{ item.quality }.by(1)
+      end
+    end
+
+    context '10 > days > 5' do
+      it 'increases in quality by 2' do
+        item = items[4]
+        item.sell_in = 7
+        expect{ rose.update_backstage_pass(item) }.to change{ item.quality }.by(2)
+      end
+    end
+
+    context '5 > days > 0' do
+      it 'increases in quality by 3' do
+        item = items[4]
+        item.sell_in = 3
+        expect{ rose.update_backstage_pass(item) }.to change{ item.quality }.by(3)
+      end
+    end
+
+    context 'after sell_in date' do
+      it 'quality drops to 0' do
+        item = items[4]
+        item.sell_in = -2
+        rose.update_backstage_pass(item)
+        expect(item.quality).to eq(0)
+      end
+    end
+
   end
 
 end
